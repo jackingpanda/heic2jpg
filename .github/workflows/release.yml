@@ -1,0 +1,43 @@
+name: Publish Windows release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Validate release tag and notes
+        shell: pwsh
+        run: |
+          $releaseVersion = node -p "require('./package.json').version"
+          if ('${{ github.ref_type }}' -ne 'tag') { throw 'Choose a version tag when running the release workflow manually.' }
+          if ('${{ github.ref_name }}' -ne "v$releaseVersion") { throw 'Tag and application version differ.' }
+      - run: npm ci
+      - run: npm run release:check
+      - run: npm test
+      - name: Build and publish installer, update manifest, and block map
+        run: npm run release:publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Save release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: HEIC2JPG-Windows
+          path: |
+            release/HEIC2JPG-Setup-*.exe
+            release/HEIC2JPG-Setup-*.exe.blockmap
+            release/latest.yml
+          if-no-files-found: error
