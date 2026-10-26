@@ -7,6 +7,20 @@ release/
 installer/generated/
 resources/legal/
 
+# Private planning and maintenance notes; only the user guide is public
+docs/*.md
+!docs/GETTING_STARTED.md
+.internal/
+*.private.md
+/PRD*.md
+/*_PLAN.md
+/ARCHITECTURE.md
+/UI_DESIGN.md
+/VERIFICATION*.md
+.agents/
+.codex/
+AGENTS.md
+
 # Local profiles, test output, caches, and coverage
 .test-output/
 .local-data/

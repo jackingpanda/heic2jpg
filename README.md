@@ -121,11 +121,9 @@ npm run package
 
 `npm run dev` starts development. UI tests need a completed build and should run sequentially, without rebuilding at the same time. They use public fixtures and isolated profiles. `node scripts/prepare-fixtures.cjs` restores the public fixture if missing; `npm run prepare:installer` regenerates matching icons, license notices and checked NSIS phase customization.
 
-- [Maintainer release procedure](docs/RELEASING.md)
 - [Screenshot tutorial](docs/GETTING_STARTED.md)
-- [Architecture and original product intent](docs/ARCHITECTURE.md)
-- [Verification reports](docs/VERIFICATION.md)
-- [License structure and review notes](legal/README.md)
+- [Security reporting](SECURITY.md)
+- [License information](legal/README.md)
 
 `releases/history.json` is the source for CHANGELOG.md, GitHub release notes and the in-app history. Run `npm run release:notes` after updating it. Tags matching `v<package-version>` trigger the Windows release workflow, which publishes the installer, block map and `latest.yml` update manifest. Never commit installers, credentials or signing certificates to Git.
 
