@@ -2,6 +2,32 @@
 
 User-facing changes follow semantic versioning. This file is generated from `releases/history.json`; edit that source and run `npm run release:notes`.
 
+## [1.2.1] - 2026-10-27
+
+Clear diagnostics for photos whose contents do not match their filename extension.
+
+### Added
+
+- Input diagnostics identify JPEG, PNG, WebP, GIF, TIFF, PDF, and AVIF data in HEIC/HEIF-named files.
+- Conversion reports include detected formats, diagnostic codes, short file signatures, and recommended actions.
+
+### Changed
+
+- The main queue and compact Explorer window explain when HEIC-named files are already JPEGs and do not require conversion.
+
+### Fixed
+
+- Rescanning an Explorer selection clears obsolete format diagnostics when the input has changed.
+
+### Security
+
+- Diagnostics leave originals unchanged and do not upload photo data or reports. Exported reports identify their private path/signature contents.
+
+### Important notes
+
+- This update diagnoses filename/format mismatches. It does not rename or re-encode mismatched files automatically.
+- Windows builds remain unsigned.
+
 ## [1.2.0] - 2026-10-26
 
 Release-ready desktop experience, support, and GitHub update delivery.
@@ -65,6 +91,7 @@ Initial Windows desktop release.
 - Metadata and timestamp preservation, configurable outputs, dark/light themes, and keyboard controls.
 - Opt-in Explorer integration, tray notifications, and Windows installer/uninstaller.
 
+[1.2.1]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.1
 [1.2.0]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.0
 [1.1.0]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.1.0
 [1.0.0]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.0.0

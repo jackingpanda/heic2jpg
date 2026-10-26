@@ -1,4 +1,5 @@
 import { HelpCenter } from './HelpCenter'
+import { inputDiagnosticSummary } from '../../shared/input-diagnostics'
 import logo from '../../../resources/icon.svg'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
@@ -82,6 +83,7 @@ export function App() {
   const elapsed = (state.finishedAt || now) - state.startedAt
   const eta = completed && running ? (elapsed / completed) * (batch.length - completed) : 0
   const detail = selected.size === 1 ? photos.find(p => selected.has(p.id)) : undefined
+  const inputNotice = useMemo(() => inputDiagnosticSummary(photos), [photos])
 
   async function update(patch: Partial<Settings>) {
     const next = { ...preferences.current, ...patch }
@@ -172,6 +174,7 @@ export function App() {
             </div>
             <div className="queue-footnote">{detail && (detail.error || detail.warning) ? <span className="issue-detail" title={detail.error || detail.warning}><CircleAlert size={13} />{detail.error || detail.warning}</span> : <><span>{selected.size ? `${selected.size} selected` : photos.length ? `${photos.length} photos · ${size(photos.reduce((sum, p) => sum + p.size, 0))}` : 'Select HEIC or HEIF photos to begin.'}</span><span>{photos.length ? 'Shift + click to select a range' : <><LockKeyhole size={11} />Your photos stay on this device</>}</span></>}</div>
           </div>
+          {inputNotice && <div className="scan-notice" role="status"><CircleAlert size={14} /><span title={inputNotice}>{inputNotice}</span></div>}
           {state.scanWarnings.length > 0 && <div className="scan-notice" role="status"><Info size={14} /><span title={state.scanWarnings.join('\n')}>{state.scanWarnings[0]}{state.scanWarnings.length > 1 ? ` (+${state.scanWarnings.length - 1} more)` : ''}</span></div>}
         </section>
 

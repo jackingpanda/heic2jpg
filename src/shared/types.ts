@@ -1,7 +1,15 @@
 export type Status = 'queued' | 'converting' | 'done' | 'error' | 'skipped' | 'cancelled'
+export interface InputDiagnostic {
+  code: 'FORMAT_MISMATCH' | 'UNSUPPORTED_FORMAT'
+  detectedFormat: 'JPEG' | 'PNG' | 'WebP' | 'GIF' | 'TIFF' | 'PDF' | 'AVIF' | 'Unknown'
+  expectedFormat: 'HEIC/HEIF'
+  signature: string
+  recommendation: string
+}
 export interface Photo {
   id: string; path: string; name: string; size: number; status: Status
   stage?: string; outputPath?: string; outputSize?: number; error?: string; warning?: string
+  inputDiagnostic?: InputDiagnostic
 }
 export interface Settings {
   quality: number; outputMode: 'same' | 'custom'; outputPath: string

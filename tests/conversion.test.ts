@@ -34,7 +34,7 @@ describe('input and settings validation', () => {
   it('rejects a renamed JPEG and an empty HEIC', async () => {
     const disguised = join(directory, 'fake.heic')
     await sharp({ create: { width: 10, height: 10, channels: 3, background: '#f00' } }).jpeg().toFile(disguised)
-    await expect(inspectPhoto(disguised)).rejects.toThrow('does not contain')
+    await expect(inspectPhoto(disguised)).rejects.toThrow('already a JPEG')
     const empty = join(directory, 'empty.heic'); await writeFile(empty, '')
     await expect(inspectPhoto(empty)).rejects.toThrow('empty')
     expect(isHeicHeader(Buffer.alloc(4))).toBe(false)

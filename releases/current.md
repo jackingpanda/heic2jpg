@@ -1,35 +1,28 @@
-# HEIC2JPG 1.2.0
+# HEIC2JPG 1.2.1
 
-Release-ready desktop experience, support, and GitHub update delivery.
+Clear diagnostics for photos whose contents do not match their filename extension.
 
 ### Added
 
-- About panel with developer details, license information, and manual update checks.
-- Automatic GitHub update checks with explicit download and restart controls.
-- In-app problem report form with reviewed email/GitHub drafts and optional basic diagnostics.
-- Release history, release validation, GitHub issue templates, CI, and tag-based publishing.
-- Screenshot-based setup and right-click conversion guide.
+- Input diagnostics identify JPEG, PNG, WebP, GIF, TIFF, PDF, and AVIF data in HEIC/HEIF-named files.
+- Conversion reports include detected formats, diagnostic codes, short file signatures, and recommended actions.
 
 ### Changed
 
-- Professional English copy throughout the application and installer.
-- One shared brand icon across the interface, taskbar, notifications, installer, and uninstaller.
-- Installer displays the installation stage and expanded activity details.
-- Application licensing changes to personal, non-commercial use with unmodified redistribution, subject to third-party rights and earlier grants.
+- The main queue and compact Explorer window explain when HEIC-named files are already JPEGs and do not require conversion.
 
 ### Fixed
 
-- Closing the main window no longer discards an Explorer selection that is waiting to start.
+- Rescanning an Explorer selection clears obsolete format diagnostics when the input has changed.
 
 ### Security
 
-- Updater installs are blocked during conversion; automatic checks never trigger unattended installation.
-- Reports do not collect photos, EXIF, file paths, preferences, or logs automatically.
+- Diagnostics leave originals unchanged and do not upload photo data or reports. Exported reports identify their private path/signature contents.
 
 ### Important notes
 
-- Windows builds are currently unsigned. Use the official GitHub Releases page.
-- The new application license applies from 1.2.0; earlier MIT grants remain unaffected.
+- This update diagnoses filename/format mismatches. It does not rename or re-encode mismatched files automatically.
+- Windows builds remain unsigned.
 
 Download the Windows installer below. Update an existing installation by closing HEIC2JPG (including the tray icon) and running the new installer in the same location.
 

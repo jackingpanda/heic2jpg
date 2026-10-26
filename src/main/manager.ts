@@ -31,7 +31,7 @@ export class ConversionManager extends EventEmitter {
         const existing = known.get(key)
         if (!existing) { known.set(key, photo); this.state.photos.push(photo); ids.add(photo.id); added++; this.publish() }
         else if (requeueExisting && !ids.has(existing.id)) {
-          Object.assign(existing, photo, { id: existing.id, outputPath: undefined, outputSize: undefined, warning: undefined, error: photo.error, stage: undefined })
+          Object.assign(existing, photo, { id: existing.id, outputPath: undefined, outputSize: undefined, warning: undefined, error: photo.error, stage: undefined, inputDiagnostic: photo.inputDiagnostic })
           ids.add(existing.id); added++; this.publish()
         }
       }, message => { if (this.state.scanWarnings.length < 20) this.state.scanWarnings.push(message) })

@@ -7,6 +7,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { QuickProgressWindow } from './quick-progress'
 import type { QuickProgressState, AppInfo } from '../shared/types'
 import { product } from '../shared/product'
+import { conversionReport } from '../shared/input-diagnostics'
 import { UpdateService } from './update-service'
 import { validateReport, formatReport, reportDestination } from './support'
 import { ConversionManager } from './manager'
@@ -237,8 +238,7 @@ function registerIpc(): void {
     'export-log': async () => {
       const result = await dialog.showSaveDialog(window!, { defaultPath: 'HEIC2JPG-conversion-log.txt', filters: [{ name: 'Text log', extensions: ['txt'] }] })
       if (result.canceled || !result.filePath) return false
-      const rows = manager.state.photos.map(p => `${p.status.toUpperCase()}  ${p.path}\n${p.outputPath ? `  Output: ${p.outputPath}\n` : ''}${p.error || p.warning ? `  ${p.error || p.warning}\n` : ''}`)
-      await writeFile(result.filePath, `HEIC2JPG conversion report\n${new Date().toISOString()}\n\n${rows.join('\n')}`, 'utf8'); return true
+      await writeFile(result.filePath, conversionReport(manager.state.photos, applicationVersion, manager.state.scanWarnings), 'utf8'); return true
     }
   }
   for (const [channel, handler] of Object.entries(handlers)) ipcMain.handle(channel, (event, ...args) => {

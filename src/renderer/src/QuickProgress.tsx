@@ -1,4 +1,5 @@
 import logo from '../../../resources/icon.svg'
+import { inputDiagnosticSummary } from '../../shared/input-diagnostics'
 import { useEffect, useState } from 'react'
 import { ArrowRight, Check, CircleAlert, FileImage, FolderOpen, LoaderCircle, Square, X } from 'lucide-react'
 import type { QuickProgressState } from '../../shared/types'
@@ -30,7 +31,7 @@ export function QuickProgress() {
   const seconds = Math.max(0, Math.floor(((state.finishedAt && complete ? state.finishedAt : now) - state.startedAt) / 1000))
   const elapsed = seconds < 60 ? `${seconds}s` : `${Math.floor(seconds / 60)}m ${seconds % 60}s`
   const title = state.phase === 'scanning' ? 'Finding your photos' : state.phase === 'waiting' ? 'Preparing your selection' : state.phase === 'stopping' ? 'Finishing current photos' : complete ? failed ? done ? 'Completed with warnings' : 'Some photos need attention' : stopped ? 'Stopped safely' : done ? 'Your JPEGs are ready' : skipped ? 'Already converted' : 'Nothing to convert' : 'Converting photos to JPEG'
-  const subtitle = error || state.message || (complete ? [done ? `${done} saved` : '', skipped ? `${skipped} skipped` : '', failed ? `${failed} to review` : '', stopped ? `${stopped} stopped` : ''].filter(Boolean).join(' · ') : state.phase === 'scanning' ? 'Looking for HEIC and HEIF files…' : state.phase === 'waiting' ? 'Preparing your selection or waiting for the current batch.' : active?.stage || 'Preparing the next photo…')
+  const subtitle = error || state.message || (complete && inputDiagnosticSummary(state.photos)) || (complete ? [done ? `${done} saved` : '', skipped ? `${skipped} skipped` : '', failed ? `${failed} to review` : '', stopped ? `${stopped} stopped` : ''].filter(Boolean).join(' · ') : state.phase === 'scanning' ? 'Looking for HEIC and HEIF files…' : state.phase === 'waiting' ? 'Preparing your selection or waiting for the current batch.' : active?.stage || 'Preparing the next photo…')
   async function run(task: () => Promise<unknown>) { try { await task() } catch (e) { setError((e as Error).message) } }
   return <div className={`quick-card ${complete ? failed || state.message ? 'has-issues' : 'is-complete' : 'is-active'}`}>
     <header className="quick-header"><span className="quick-wordmark"><img src={logo} alt="" /> HEIC2JPG <span>QUICK CONVERT</span></span><button aria-label="Hide progress" title={complete ? 'Dismiss' : 'Hide · conversion continues in the tray'} onClick={() => api.hide()}><X size={14} /></button></header>
