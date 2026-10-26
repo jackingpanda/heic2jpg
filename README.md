@@ -1,12 +1,24 @@
-# HEIC2JPG
+<p align="center">
+  <img src="resources/icon.svg" width="96" height="96" alt="HEIC2JPG logo">
+</p>
 
-<img src="resources/icon.svg" width="72" alt="HEIC2JPG logo">
+<h1 align="center">HEIC2JPG</h1>
 
-**Convert HEIC photos directly from Windows Explorer.**
+<p align="center">
+  <strong>Convert HEIC photos directly from Windows Explorer.</strong><br>
+  Select photos. Right-click <strong>Convert to JPG</strong>. Follow the compact progress window.
+</p>
 
-Select photos, right-click **Convert to JPG**, and follow a compact progress window. HEIC2JPG converts on your Windows PC, keeps full resolution, and retains original files for Explorer conversions.
+<p align="center">
+  Local conversion on your Windows PC · Full-resolution output · Originals retained
+</p>
 
-[**Download for Windows**](https://github.com/jackingpanda/heic2jpg/releases/latest) · [Getting started](docs/GETTING_STARTED.md) · [Release notes](CHANGELOG.md) · [Report a problem](https://github.com/jackingpanda/heic2jpg/issues/new/choose)
+<p align="center">
+  <a href="https://github.com/jackingpanda/heic2jpg/releases/latest"><strong>Download for Windows</strong></a>
+  &nbsp;·&nbsp; <a href="docs/GETTING_STARTED.md">Getting started</a>
+  &nbsp;·&nbsp; <a href="CHANGELOG.md">Release notes</a>
+  &nbsp;·&nbsp; <a href="https://github.com/jackingpanda/heic2jpg/issues/new/choose">Report a problem</a>
+</p>
 
 > Free for personal, non-commercial use. Share only unmodified official releases without charging. Application code is source-available under a custom license, not an open-source license. [Read the license](LICENSE).
 
