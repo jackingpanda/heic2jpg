@@ -1,0 +1,38 @@
+name: Report a problem
+description: Report an application, conversion, installation, or update issue.
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: 'Do not attach private photos, GPS/EXIF information, tokens, or personal file paths. Report security issues privately to heic2jpg@kulam.my.id.'
+  - type: input
+    id: version
+    attributes:
+      label: HEIC2JPG version
+      placeholder: 1.2.0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include the expected result and the actual result.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Windows version and architecture
+      placeholder: Windows 11, x64
+  - type: checkboxes
+    attributes:
+      label: Privacy
+      options:
+        - label: I have removed private photo information and personal file paths.
+          required: true

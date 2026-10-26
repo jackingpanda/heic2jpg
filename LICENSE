@@ -1,0 +1,83 @@
+KULAM PERSONAL USE LICENSE 1.0
+HEIC2JPG - application releases 1.2.0 and later
+Copyright (c) 2026 KULAM. All rights reserved except as stated below.
+Contact: heic2jpg@kulam.my.id | https://www.kulam.my.id
+
+1. SCOPE
+This license governs KULAM-owned HEIC2JPG application code, branding, and
+original documentation supplied under this license. Separately licensed
+third-party components are excluded. This is a proprietary, source-available
+personal-use license, not an open-source license.
+
+2. PERSONAL USE
+You may download, install, and run official, unmodified HEIC2JPG releases
+without payment for your own private, personal, non-commercial purposes.
+You may inspect the published application source for understanding, security
+review, and verification. Source availability grants no additional rights
+beyond those stated here, applicable law, or a separate third-party license.
+
+3. UNMODIFIED REDISTRIBUTION
+You may share complete, unmodified official release files, without charging
+any fee or receiving compensation, provided you retain all license, copyright,
+privacy, and third-party notices, identify KULAM as the developer, and do not
+imply endorsement. Do not redistribute development copies or modified builds.
+Linking to the official GitHub Releases page is preferred. This permission
+does not authorize commercial bundles, paid distribution, advertising-based
+redistribution, or use as part of a product or service offered to others.
+
+4. RESTRICTIONS
+Except as expressly permitted by section 5, you may not:
+- use the application in a business, professional, organizational, revenue-
+  generating, client, or commercial workflow;
+- sell, rent, sublicense, monetize, or commercially distribute the application;
+- modify, adapt, translate, rebrand, create derivative works of, or distribute
+  modified KULAM application code or official builds;
+- remove notices or represent the application as your own work.
+Any broader permission must be obtained in writing from KULAM.
+
+5. REQUIRED EXCEPTIONS AND THIRD-PARTY RIGHTS
+Nothing in this license restricts rights granted by a third-party license or
+rights that mandatory applicable law does not allow a contract to restrict.
+In particular, users may modify or replace LGPL-covered libraries and reverse
+engineer the combined work as necessary to debug those modifications, and
+recombine or relink the application with compatible modified libraries where
+the applicable LGPL requires it. The application code may be used for those
+limited compliance purposes. These exceptions do not license unrelated changes
+to KULAM code or remove the personal-use restriction on KULAM-owned portions.
+Third-party components retain their own commercial-use, redistribution, source,
+modification, and other rights. See THIRD_PARTY_NOTICES.md and legal/.
+GitHub and its users retain the limited platform rights required by GitHub's
+terms for hosting, viewing, and platform forking of a public repository. Those
+platform rights are not a general license for modified commercial releases.
+
+6. EARLIER LICENSE GRANTS
+This license is prospective. Copies of releases 1.0.0 and 1.1.0 previously
+provided under MIT remain subject to their MIT grants; this license does not
+revoke those rights or any other valid prior written grant. A copy of the
+previous MIT notice is included at legal/LEGACY-MIT.txt for historical clarity.
+
+7. OWNERSHIP AND PHOTOS
+KULAM retains rights in its application code and branding. You retain your
+rights in your photos and converted files. This license claims no ownership
+of input or output images and imposes no new copyright license on those images.
+The personal-use limitation still applies to use of the application itself.
+
+8. TERMINATION
+Permission ends automatically if you materially violate these terms. Stop
+using and distributing KULAM-covered portions when permission ends. This does
+not terminate independent third-party licenses or mandatory legal rights.
+
+9. WARRANTY AND LIABILITY
+To the maximum extent permitted by applicable law, the software is provided
+AS IS, without warranties of merchantability, fitness for a particular purpose,
+non-infringement, uninterrupted operation, or complete metadata preservation.
+Keep backups of original photos. To that same extent, KULAM is not liable for
+loss of data, profits, business interruption, or other direct or indirect loss
+arising from use of the software. Non-waivable consumer and statutory rights
+remain unaffected. No particular jurisdiction or exclusive forum is selected.
+
+10. ACCEPTANCE AND PERMISSION
+Installing, using, or redistributing KULAM-covered portions indicates acceptance
+of these terms to the extent legally effective. If you cannot accept them, do
+not install, use, or redistribute those portions. For permission beyond this
+license, contact heic2jpg@kulam.my.id.

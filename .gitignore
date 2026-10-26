@@ -1,0 +1,16 @@
+node_modules/
+out/
+release/
+.test-output/
+.local-data/
+.cache/
+*.log
+installer/generated/
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.pem
+tests/fixtures/*.heic
+tests/fixtures/*.heif

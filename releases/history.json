@@ -1,0 +1,20 @@
+[
+  {
+    "version": "1.2.0", "date": "2026-10-26", "summary": "Release-ready desktop experience, support, and GitHub update delivery.",
+    "added": ["About panel with developer details, license information, and manual update checks.", "Automatic GitHub update checks with explicit download and restart controls.", "In-app problem report form with reviewed email/GitHub drafts and optional basic diagnostics.", "Release history, release validation, GitHub issue templates, CI, and tag-based publishing.", "Screenshot-based setup and right-click conversion guide."],
+    "changed": ["Professional English copy throughout the application and installer.", "One shared brand icon across the interface, taskbar, notifications, installer, and uninstaller.", "Installer displays the installation stage and expanded activity details.", "Application licensing changes to personal, non-commercial use with unmodified redistribution, subject to third-party rights and earlier grants."],
+    "fixed": ["Closing the main window no longer discards an Explorer selection that is waiting to start."],
+    "security": ["Updater installs are blocked during conversion; automatic checks never trigger unattended installation.", "Reports do not collect photos, EXIF, file paths, preferences, or logs automatically."],
+    "notes": ["Windows builds are currently unsigned. Use the official GitHub Releases page.", "The new application license applies from 1.2.0; earlier MIT grants remain unaffected."]
+  },
+  {
+    "version": "1.1.0", "date": "2026-10-26", "summary": "Compact progress for practical Explorer conversion.",
+    "added": ["Animated compact window with file counts, stages, elapsed time, taskbar progress, and safe Stop.", "Version label in advanced settings and a documented installer update procedure."],
+    "changed": ["Explorer selections convert automatically even with the main window open.", "Successful compact sessions dismiss after eight seconds; errors stay available for review."],
+    "fixed": ["Repeated selections requeue existing records while honoring conflict settings.", "Upgrade installation restores an existing right-click preference."], "security": [], "notes": []
+  },
+  {
+    "version": "1.0.0", "date": "2026-10-26", "summary": "Initial Windows desktop release.",
+    "added": ["Local HEIC/HEIF decoding and full-resolution JPEG 4:4:4 encoding.", "Drag/drop, native dialogs, virtualized queue, search, filters, retries, and safe cancellation.", "Metadata and timestamp preservation, configurable outputs, dark/light themes, and keyboard controls.", "Opt-in Explorer integration, tray notifications, and Windows installer/uninstaller."], "changed": [], "fixed": [], "security": [], "notes": []
+  }
+]

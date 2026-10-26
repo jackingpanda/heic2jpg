@@ -1,0 +1,121 @@
+{
+  "name": "heic2jpg",
+  "version": "1.2.0",
+  "description": "Convert HEIC photos directly from Windows Explorer with local processing and compact progress.",
+  "author": {
+    "name": "KULAM",
+    "email": "heic2jpg@kulam.my.id",
+    "url": "https://www.kulam.my.id"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "npm run typecheck && electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:ui": "node scripts/run-smoke.cjs",
+    "test:progress": "node scripts/run-progress-smoke.cjs",
+    "package": "npm run build && npm run prepare:installer && electron-builder --win nsis --publish never",
+    "package:dir": "npm run build && npm run assets && npm run legal:prepare && electron-builder --win --dir --publish never",
+    "assets": "node scripts/prepare-assets.cjs",
+    "release:notes": "node scripts/release-notes.cjs",
+    "release:check": "node scripts/release-notes.cjs --check",
+    "prepare:installer": "npm run assets && npm run legal:prepare && node scripts/prepare-installer.cjs",
+    "release:publish": "npm run build && npm run prepare:installer && electron-builder --win nsis --publish always",
+    "legal:prepare": "node scripts/prepare-legal.cjs",
+    "docs:capture": "node scripts/run-capture-docs.cjs",
+    "pretest": "node scripts/ensure-fixture.cjs"
+  },
+  "dependencies": {
+    "@tanstack/react-virtual": "^3.13.0",
+    "electron-updater": "^6.8.12",
+    "exiftool-vendored.exe": "^13.0.0",
+    "heic-decode": "^2.1.0",
+    "lucide-react": "^0.577.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.0.0",
+    "electron-vite": "^6.0.0",
+    "typescript": "^5.9.0",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  },
+  "build": {
+    "appId": "com.heic2jpg.desktop",
+    "productName": "HEIC2JPG",
+    "executableName": "HEIC2JPG",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*",
+      "resources/**/*",
+      "package.json",
+      "LICENSE",
+      "README.md",
+      "THIRD_PARTY_NOTICES.md",
+      "legal/**/*",
+      "PRIVACY.md",
+      "THIRD_PARTY_SOURCES.md"
+    ],
+    "asarUnpack": [
+      "node_modules/sharp/**/*",
+      "node_modules/@img/**/*",
+      "node_modules/exiftool-vendored.exe/**/*",
+      "node_modules/libheif-js/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "resources/icon.ico",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "include": "installer/hooks.nsh",
+      "artifactName": "HEIC2JPG-Setup-${version}.${ext}",
+      "installerIcon": "resources/icon.ico",
+      "uninstallerIcon": "resources/icon.ico",
+      "installerHeader": "resources/installer-header.bmp",
+      "installerSidebar": "resources/installer-sidebar.bmp",
+      "uninstallerSidebar": "resources/installer-sidebar.bmp",
+      "installerLanguages": [
+        "en_US"
+      ],
+      "language": "1033",
+      "license": "LICENSE"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "jackingpanda",
+        "repo": "heic2jpg",
+        "releaseType": "release"
+      }
+    ],
+    "releaseInfo": {
+      "releaseNotesFile": "releases/current.md"
+    },
+    "afterPack": "scripts/verify-archive.cjs"
+  },
+  "homepage": "https://www.kulam.my.id",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackingpanda/heic2jpg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jackingpanda/heic2jpg/issues",
+    "email": "heic2jpg@kulam.my.id"
+  }
+}
