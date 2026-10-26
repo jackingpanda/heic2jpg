@@ -23,7 +23,7 @@
     "release:notes": "node scripts/release-notes.cjs",
     "release:check": "node scripts/release-notes.cjs --check",
     "prepare:installer": "npm run assets && npm run legal:prepare && node scripts/prepare-installer.cjs",
-    "release:publish": "npm run build && npm run prepare:installer && electron-builder --win nsis --publish always",
+    "release:publish": "npm run build && npm run prepare:installer && electron-builder --win nsis --publish never && node scripts/publish-release.cjs",
     "legal:prepare": "node scripts/prepare-legal.cjs",
     "docs:capture": "node scripts/run-capture-docs.cjs",
     "pretest": "node scripts/ensure-fixture.cjs"

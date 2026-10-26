@@ -13,7 +13,9 @@ Only the project owner or an authorized maintainer should publish official build
 5. Verify the packaged build with `node scripts/verify-package.cjs <release-output-directory>`. Test the installer/upgrade on an isolated Windows machine. Refresh documentation screenshots when the workflow changes.
 6. Commit the reviewed source, assets and documentation. Push main, then create and push the matching `v1.2.1` tag. Never move an already-published release tag to different code.
 
-The tag triggers `.github/workflows/release.yml` on Windows. It verifies the version/notes, runs tests, builds and publishes the installer, block map and latest.yml to GitHub Releases using the workflow's repository-scoped token. The About updater reads that public feed. Do not publish latest.yml without its matching installer asset. Installer assets are release attachments, never Git source files.
+The tag triggers `.github/workflows/release.yml` on Windows. It verifies the version/notes, runs tests and builds the installer without publishing through electron-builder. `scripts/publish-release.cjs` verifies the installer against latest.yml, creates one draft release, uploads and verifies all three assets sequentially, then publishes the complete release using the workflow's repository-scoped token. This avoids concurrent release creation and a public feed with missing assets. The About updater reads that public feed. Installer assets are release attachments, never Git source files.
+
+A failed upload leaves an unpublished draft. Rerunning the same tag resumes a matching draft, verifies existing assets, and uploads only missing ones. Different or incomplete existing assets fail validation without replacement. A fully matching published release is left unchanged. Do not move a published tag or replace an installer under an existing version.
 
 ## Automated checks
 
