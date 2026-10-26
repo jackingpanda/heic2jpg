@@ -1,11 +1,43 @@
+# Dependencies and generated application/package output
 node_modules/
 out/
+dist/
+build/
 release/
+installer/generated/
+resources/legal/
+
+# Local profiles, test output, caches, and coverage
 .test-output/
 .local-data/
 .cache/
+.vite/
+.vite-temp/
+.npm/
+.pnpm-store/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# Logs, temporary files, and operating-system/editor clutter
 *.log
-installer/generated/
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+~$*
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vs/
+
+# Private configuration and signing material
 .env
 .env.*
 !.env.example
