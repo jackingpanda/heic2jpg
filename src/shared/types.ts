@@ -10,6 +10,7 @@ export interface Photo {
   id: string; path: string; name: string; size: number; status: Status
   stage?: string; outputPath?: string; outputSize?: number; error?: string; warning?: string
   inputDiagnostic?: InputDiagnostic
+  copiedUnchanged?: boolean
 }
 export interface Settings {
   quality: number; outputMode: 'same' | 'custom'; outputPath: string
@@ -31,6 +32,7 @@ export interface Snapshot {
 }
 export interface ConvertResult {
   status: 'done' | 'skipped'; outputPath: string; outputSize?: number; warning?: string
+  copiedUnchanged?: boolean; keepOriginal?: boolean
 }
 export interface WorkerJob { photo: Photo; settings: Settings }
 export type WorkerReply = { stage: string; scratch?: string } | { result: ConvertResult } | { error: string }

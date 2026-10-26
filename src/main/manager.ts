@@ -31,7 +31,7 @@ export class ConversionManager extends EventEmitter {
         const existing = known.get(key)
         if (!existing) { known.set(key, photo); this.state.photos.push(photo); ids.add(photo.id); added++; this.publish() }
         else if (requeueExisting && !ids.has(existing.id)) {
-          Object.assign(existing, photo, { id: existing.id, outputPath: undefined, outputSize: undefined, warning: undefined, error: photo.error, stage: undefined, inputDiagnostic: photo.inputDiagnostic })
+          Object.assign(existing, photo, { id: existing.id, outputPath: undefined, outputSize: undefined, warning: undefined, error: photo.error, stage: undefined, inputDiagnostic: photo.inputDiagnostic, copiedUnchanged: undefined })
           ids.add(existing.id); added++; this.publish()
         }
       }, message => { if (this.state.scanWarnings.length < 20) this.state.scanWarnings.push(message) })
@@ -93,7 +93,7 @@ export class ConversionManager extends EventEmitter {
           if (!worker) { worker = new Worker(join(__dirname, 'worker.js')); this.workers.add(worker) }
           const result = await this.run(worker, photo, settings)
           Object.assign(photo, result); photo.stage = undefined
-          if (result.status === 'done' && settings.recycleOriginals && !result.warning) {
+          if (result.status === 'done' && settings.recycleOriginals && !result.warning && !result.keepOriginal) {
             try { await this.recycle(photo.path) } catch { photo.warning = 'JPEG saved. The original could not be moved to the Recycle Bin.' }
           }
         } catch (error) {

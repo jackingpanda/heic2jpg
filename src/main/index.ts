@@ -208,8 +208,10 @@ function registerIpc(): void {
     start: async (ids: unknown) => {
       await settingsWrite
       const list = ids === undefined ? undefined : validIds(ids)
-      if (manager.state.settings.recycleOriginals) {
-        const result = await dialog.showMessageBox(window!, { type: 'warning', title: 'Move originals to the Recycle Bin?', message: 'Move original HEIC photos to the Recycle Bin after conversion?', detail: 'Only verified conversions without metadata warnings qualify. Failed and skipped originals stay in place. You can restore photos from the Recycle Bin.', buttons: ['Keep originals', 'Move after conversion'], defaultId: 0, cancelId: 0 })
+      const selectedForConversion = list ? new Set(list) : undefined
+      const eligibleForRecycling = manager.state.photos.some(photo => ['queued', 'cancelled'].includes(photo.status) && (!selectedForConversion || selectedForConversion.has(photo.id)) && photo.inputDiagnostic?.detectedFormat !== 'JPEG')
+      if (manager.state.settings.recycleOriginals && eligibleForRecycling) {
+        const result = await dialog.showMessageBox(window!, { type: 'warning', title: 'Move originals to the Recycle Bin?', message: 'Move original HEIC photos to the Recycle Bin after conversion?', detail: 'Only verified HEIC conversions without metadata warnings qualify. Original JPEGs with HEIC/HEIF filenames are always kept. Failed and skipped originals stay in place. You can restore photos from the Recycle Bin.', buttons: ['Keep originals', 'Move after conversion'], defaultId: 0, cancelId: 0 })
         if (result.response === 0) { void manager.start(list, true).catch(e => notify('Conversion could not start', e.message)); return }
       }
       // Return after startup; subsequent progress arrives through the subscription.

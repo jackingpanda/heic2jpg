@@ -2,6 +2,33 @@
 
 User-facing changes follow semantic versioning. This file is generated from `releases/history.json`; edit that source and run `npm run release:notes`.
 
+## [1.2.2] - 2026-10-27
+
+Save JPG copies even when a HEIC-named photo already contains JPEG data.
+
+### Added
+
+- JPEG data in HEIC/HEIF-named files can be saved as verified .jpg copies from the GUI or Explorer menu, without recompression.
+
+### Changed
+
+- Existing JPEG pixels, metadata and orientation are retained. Naming, destination, conflict and timestamp settings still apply.
+- The queue and compact window explain whether JPEG copies are ready or saved.
+
+### Fixed
+
+- Already-JPEG inputs are ready to process instead of being blocked by a format-mismatch error.
+
+### Security
+
+- Original JPEGs are always retained, even when recycling is enabled for HEIC conversion.
+- Corrupt and oversized JPEG data is rejected without leaving partial output. Metadata-disabled settings produce an explicit retention warning for unchanged JPEG copies.
+
+### Important notes
+
+- Quality and metadata-removal settings apply to HEIC/HEIF conversion; existing JPEGs are copied unchanged.
+- Windows builds remain unsigned.
+
 ## [1.2.1] - 2026-10-27
 
 Clear diagnostics for photos whose contents do not match their filename extension.
@@ -91,6 +118,7 @@ Initial Windows desktop release.
 - Metadata and timestamp preservation, configurable outputs, dark/light themes, and keyboard controls.
 - Opt-in Explorer integration, tray notifications, and Windows installer/uninstaller.
 
+[1.2.2]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.2
 [1.2.1]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.1
 [1.2.0]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.0
 [1.1.0]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.1.0

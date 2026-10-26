@@ -39,7 +39,7 @@ export async function commitOutput(temp: string, destination: string, conflict: 
 }
 export async function convertPhoto(job: WorkerJob, stage: (text: string, scratch?: string) => void = () => {}): Promise<ConvertResult> {
   const { photo, settings } = job
-  await inspectPhoto(photo.path)
+  const inspected = await inspectPhoto(photo.path)
   const folder = settings.outputMode === 'custom' ? settings.outputPath : dirname(photo.path)
   if (!folder) throw new Error('Choose an output folder first.')
   await mkdir(folder, { recursive: true })
@@ -50,6 +50,23 @@ export async function convertPhoto(job: WorkerJob, stage: (text: string, scratch
   const temp = join(directory, 'photo.jpg')
   try {
     const original = await stat(photo.path)
+    if (inspected.inputDiagnostic?.detectedFormat === 'JPEG') {
+      stage('Copying existing JPEG without recompression')
+      await copyFile(photo.path, temp, constants.COPYFILE_EXCL)
+      stage('Verifying JPG copy')
+      const image = sharp(temp, { failOn: 'warning', limitInputPixels: 100_000_000 })
+      const info = await image.metadata()
+      if (info.format !== 'jpeg' || !info.width || !info.height) throw new Error('The JPEG copy could not be verified. Original kept.')
+      await image.stats()
+      const outputSize = (await stat(temp)).size
+      if (settings.preserveTimestamps) await utimes(temp, original.atime, original.mtime)
+      stage('Saving JPG copy')
+      const saved = await commitOutput(temp, destination, settings.conflict)
+      if (saved && settings.preserveTimestamps) await utimes(saved, original.atime, original.mtime)
+      return saved ? { status: 'done', outputPath: saved, outputSize, copiedUnchanged: true, keepOriginal: true,
+        warning: settings.preserveMetadata ? undefined : 'JPEG copied unchanged, including existing metadata. Metadata removal applies only to HEIC/HEIF conversion. Original kept.' }
+        : { status: 'skipped', outputPath: destination, keepOriginal: true }
+    }
     stage('Reading orientation')
     let orientation = { orientation: 1, rotation: 0 }
     let orientationWarning: string | undefined

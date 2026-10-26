@@ -32,6 +32,7 @@ export async function inspectPhoto(file: string): Promise<Photo> {
   if (!info.size) throw new Error('This file is empty.')
   if (info.size > 150 * 1024 * 1024) throw new Error('This photo exceeds the 150 MB safety limit.')
   const handle = await open(file, 'r')
+  let inputDiagnostic: InputDiagnostic | undefined
   try {
     const header = Buffer.alloc(128)
     const { bytesRead } = await handle.read(header, 0, header.length, 0)
@@ -39,19 +40,22 @@ export async function inspectPhoto(file: string): Promise<Photo> {
     const detectedFormat = detectOtherFormat(bytes)
     if (detectedFormat !== 'Unknown' || !isHeicHeader(bytes)) {
       const recommendation = detectedFormat === 'JPEG'
-        ? 'Save an unchanged copy with a .jpg extension. No conversion or re-encoding is needed. Keep the original.'
+        ? 'Convert to save a .jpg copy without recompression, including existing metadata. The original is kept.'
         : detectedFormat === 'Unknown'
           ? 'Verify the original file format and ensure the file is fully available on this device.'
           : 'Use the correct file extension and a converter that supports this format. Keep the original.'
-      const message = detectedFormat === 'JPEG'
-        ? 'This file is already a JPEG with a HEIC/HEIF extension. Save a .jpg copy; no conversion is needed.'
-        : detectedFormat === 'Unknown'
+      const diagnostic: InputDiagnostic = { code: detectedFormat === 'Unknown' ? 'UNSUPPORTED_FORMAT' : 'FORMAT_MISMATCH', detectedFormat, expectedFormat: 'HEIC/HEIF', signature: bytes.subarray(0, 16).toString('hex').match(/.{2}/g)?.join(' ').toUpperCase() || '', recommendation }
+      if (detectedFormat === 'JPEG') {
+        inputDiagnostic = diagnostic
+      } else {
+        const message = detectedFormat === 'Unknown'
           ? 'The file does not contain a supported HEIC/HEIF image. Its format could not be recognized.'
           : `This file contains ${detectedFormat} data, not HEIC/HEIF. Check its filename extension.`
-      throw new InputInspectionError(message, { code: detectedFormat === 'Unknown' ? 'UNSUPPORTED_FORMAT' : 'FORMAT_MISMATCH', detectedFormat, expectedFormat: 'HEIC/HEIF', signature: bytes.subarray(0, 16).toString('hex').match(/.{2}/g)?.join(' ').toUpperCase() || '', recommendation })
+        throw new InputInspectionError(message, diagnostic)
+      }
     }
   } finally { await handle.close() }
-  return { id: randomUUID(), path: await realpath(file), name: basename(file), size: info.size, status: 'queued' }
+  return { id: randomUUID(), path: await realpath(file), name: basename(file), size: info.size, status: 'queued', inputDiagnostic }
 }
 export async function scanPhotos(paths: string[], recursive: boolean, onPhoto: (photo: Photo) => void, onWarning: (message: string) => void): Promise<void> {
   const seen = new Set<string>()

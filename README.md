@@ -84,7 +84,7 @@ Metadata preservation does not guarantee every vendor field, HDR/gain map, depth
 
 ### A HEIC-named file is reported as JPEG
 
-The app checks file contents, not only the filename extension. A photo ending in `.HEIC` may already contain JPEG data. The queue and compact window explain this mismatch; conversion is not needed. Create an unchanged copy with a `.jpg` extension instead. HEIC2JPG does not rename or re-encode these files automatically.
+The app checks file contents, not only the filename extension. A photo ending in `.HEIC` may already contain JPEG data. Choose **Convert photos** or use the Explorer menu as usual: HEIC2JPG saves a verified `.jpg` copy without recompression and keeps the original. Naming, destination, skip/rename/replace, and timestamp settings still apply. Existing metadata and orientation are retained; quality and metadata-removal settings apply to genuine HEIC/HEIF conversion. The app warns if metadata was disabled for an unchanged JPEG copy.
 
 For troubleshooting, open Settings and choose **Save conversion report**. The local report includes detected formats, file signatures, error codes, and recommended actions. It also contains local file paths: review it before sharing. Reports and photos are never sent automatically.
 

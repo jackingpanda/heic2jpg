@@ -1,9 +1,11 @@
 import type { Photo } from './types'
 
 export function inputDiagnosticSummary(photos: Photo[]): string | undefined {
-  const count = photos.filter(photo => photo.status === 'error' && photo.inputDiagnostic?.detectedFormat === 'JPEG').length
-  if (!count) return undefined
-  return `${count} ${count === 1 ? 'file is already a JPEG' : 'files are already JPEGs'} with a HEIC/HEIF extension. Save .jpg copies; no conversion is needed. Originals are unchanged.`
+  const pending = photos.filter(photo => ['queued', 'converting', 'cancelled'].includes(photo.status) && photo.inputDiagnostic?.detectedFormat === 'JPEG').length
+  const saved = photos.filter(photo => photo.status === 'done' && photo.copiedUnchanged).length
+  if (pending) return `${pending} ${pending === 1 ? 'file is already a JPEG' : 'files are already JPEGs'}. Convert to save .jpg copies without recompression, including existing metadata. Originals are kept.`
+  if (saved) return `${saved} JPG ${saved === 1 ? 'copy saved' : 'copies saved'} without recompression. Existing metadata and originals are kept.`
+  return undefined
 }
 
 export function conversionReport(photos: Photo[], version: string, warnings: string[] = []): string {
@@ -12,6 +14,7 @@ export function conversionReport(photos: Photo[], version: string, warnings: str
     photo.outputPath && `  Output: ${photo.outputPath}`,
     photo.error && `  Error: ${photo.error}`,
     photo.warning && `  Warning: ${photo.warning}`,
+    photo.copiedUnchanged && '  Method: JPEG copied unchanged without recompression; original kept.',
     photo.inputDiagnostic && [
       `  Diagnostic: ${photo.inputDiagnostic.code}`,
       `  Expected format: ${photo.inputDiagnostic.expectedFormat}`,
