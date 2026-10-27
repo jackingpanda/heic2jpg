@@ -1,6 +1,6 @@
 {
   "name": "heic2jpg",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Convert HEIC photos directly from Windows Explorer with local processing and compact progress.",
   "author": {
     "name": "KULAM",
@@ -107,7 +107,8 @@
     "releaseInfo": {
       "releaseNotesFile": "releases/current.md"
     },
-    "afterPack": "scripts/verify-archive.cjs"
+    "afterPack": "scripts/verify-archive.cjs",
+    "afterSign": "scripts/verify-branding.cjs"
   },
   "homepage": "https://www.kulam.my.id",
   "repository": {

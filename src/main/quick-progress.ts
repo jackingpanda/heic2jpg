@@ -1,6 +1,7 @@
 import { BrowserWindow, app, screen } from 'electron'
 import { join } from 'node:path'
 import type { QuickProgressState } from '../shared/types'
+import { applicationIcon, applyWindowBranding } from './branding'
 
 export class QuickProgressWindow {
   window: BrowserWindow | null = null
@@ -25,10 +26,11 @@ export class QuickProgressWindow {
       width, height, x: area.x + Math.max(0, area.width - width - 20), y: area.y + Math.max(0, area.height - height - 20),
       title: 'HEIC2JPG · Quick convert', frame: false, transparent: true, show: false,
       resizable: false, maximizable: false, fullscreenable: false, alwaysOnTop: true,
-      backgroundColor: '#00000000', icon: join(app.getAppPath(), 'resources/icon.png'),
+      backgroundColor: '#00000000', icon: applicationIcon(),
       webPreferences: { preload: join(__dirname, '../preload/progress.js'), sandbox: true, contextIsolation: true, nodeIntegration: false, spellcheck: false, backgroundThrottling: false }
     })
     this.window = popup
+    applyWindowBranding(popup)
     popup.setMenu(null)
     popup.on('page-title-updated', event => event.preventDefault())
     popup.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))

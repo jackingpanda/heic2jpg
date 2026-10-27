@@ -2,6 +2,27 @@
 
 User-facing changes follow semantic versioning. This file is generated from `releases/history.json`; edit that source and run `npm run release:notes`.
 
+## [1.2.4] - 2026-10-27
+
+Keep the Windows taskbar associated with the correct HEIC2JPG icon.
+
+### Added
+
+- Windows packaging verifies every embedded executable icon size against the canonical application logo.
+
+### Changed
+
+- Main and compact windows explicitly identify their taskbar icon and relaunch target.
+- Application windows use the multi-resolution ICO on Windows.
+
+### Fixed
+
+- Development and QA runs no longer share the installed application's Windows identity, preventing Electron shortcuts from representing HEIC2JPG on the taskbar.
+
+### Important notes
+
+- Windows builds remain unsigned.
+
 ## [1.2.3] - 2026-10-27
 
 Fix saving JPG output on Google Drive shared drives.
@@ -135,6 +156,7 @@ Initial Windows desktop release.
 - Metadata and timestamp preservation, configurable outputs, dark/light themes, and keyboard controls.
 - Opt-in Explorer integration, tray notifications, and Windows installer/uninstaller.
 
+[1.2.4]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.4
 [1.2.3]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.3
 [1.2.2]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.2
 [1.2.1]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.1

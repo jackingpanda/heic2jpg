@@ -1,15 +1,19 @@
-# HEIC2JPG 1.2.3
+# HEIC2JPG 1.2.4
 
-Fix saving JPG output on Google Drive shared drives.
+Keep the Windows taskbar associated with the correct HEIC2JPG icon.
+
+### Added
+
+- Windows packaging verifies every embedded executable icon size against the canonical application logo.
+
+### Changed
+
+- Main and compact windows explicitly identify their taskbar icon and relaunch target.
+- Application windows use the multi-resolution ICO on Windows.
 
 ### Fixed
 
-- Google Drive for desktop can report EISDIR when creating a hard link between regular files. Saving now falls back to an exclusive file copy.
-- Skip and rename modes continue to protect existing files when the cloud filesystem does not support hard links.
-
-### Security
-
-- Permission errors are still reported rather than bypassed. Existing JPGs and original photos remain protected.
+- Development and QA runs no longer share the installed application's Windows identity, preventing Electron shortcuts from representing HEIC2JPG on the taskbar.
 
 ### Important notes
 

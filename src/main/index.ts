@@ -5,6 +5,7 @@ import { version as applicationVersion } from '../../package.json'
 import { join, dirname, isAbsolute } from 'node:path'
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { QuickProgressWindow } from './quick-progress'
+import { applicationIcon, applicationWindowDetails, applyWindowBranding } from './branding'
 import type { QuickProgressState, AppInfo } from '../shared/types'
 import { product } from '../shared/product'
 import { conversionReport } from '../shared/input-diagnostics'
@@ -20,7 +21,7 @@ if (!app.isPackaged) app.setPath('userData', join(app.getAppPath(), '.local-data
 const isolated = process.argv.includes('--qa')
 if (isolated) app.setPath('userData', join(app.isPackaged ? dirname(dirname(process.execPath)) : app.getAppPath(), '.local-data', 'qa'))
 if (process.argv.includes('--smoke')) app.setPath('userData', join(app.getAppPath(), '.local-data', 'smoke'))
-app.setAppUserModelId('com.heic2jpg.desktop')
+app.setAppUserModelId(applicationWindowDetails().appId)
 let window: BrowserWindow | null = null
 let tray: Tray | undefined
 let manager: ConversionManager
@@ -83,9 +84,10 @@ async function showWindow(): Promise<void> {
   let bounds = { width: 1120, height: 800 }
   try { const saved = JSON.parse(await readFile(join(dataDirectory, 'window.json'), 'utf8')); bounds = { width: Math.max(760, Math.min(1800, saved.width)), height: Math.max(620, Math.min(1200, saved.height)) } } catch { /* default dimensions */ }
   window = new BrowserWindow({ ...bounds, minWidth: 760, minHeight: 620, title: 'HEIC2JPG', frame: false, show: false,
-    backgroundColor: '#111216', icon: join(app.getAppPath(), 'resources/icon.png'),
+    backgroundColor: '#111216', icon: applicationIcon(),
     webPreferences: { preload: join(__dirname, '../preload/index.js'), sandbox: true, contextIsolation: true, nodeIntegration: false, spellcheck: false }
   })
+  applyWindowBranding(window)
   window.setMenu(null)
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
   window.webContents.on('will-navigate', event => event.preventDefault())

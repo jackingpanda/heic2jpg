@@ -1,5 +1,12 @@
 [
   {
+    "version": "1.2.4", "date": "2026-10-27", "summary": "Keep the Windows taskbar associated with the correct HEIC2JPG icon.",
+    "added": ["Windows packaging verifies every embedded executable icon size against the canonical application logo."],
+    "changed": ["Main and compact windows explicitly identify their taskbar icon and relaunch target.", "Application windows use the multi-resolution ICO on Windows."],
+    "fixed": ["Development and QA runs no longer share the installed application's Windows identity, preventing Electron shortcuts from representing HEIC2JPG on the taskbar."],
+    "security": [], "notes": ["Windows builds remain unsigned."]
+  },
+  {
     "version": "1.2.3", "date": "2026-10-27", "summary": "Fix saving JPG output on Google Drive shared drives.",
     "added": [], "changed": [],
     "fixed": ["Google Drive for desktop can report EISDIR when creating a hard link between regular files. Saving now falls back to an exclusive file copy.", "Skip and rename modes continue to protect existing files when the cloud filesystem does not support hard links."],
