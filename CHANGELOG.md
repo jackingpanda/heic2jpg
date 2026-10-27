@@ -2,6 +2,23 @@
 
 User-facing changes follow semantic versioning. This file is generated from `releases/history.json`; edit that source and run `npm run release:notes`.
 
+## [1.2.3] - 2026-10-27
+
+Fix saving JPG output on Google Drive shared drives.
+
+### Fixed
+
+- Google Drive for desktop can report EISDIR when creating a hard link between regular files. Saving now falls back to an exclusive file copy.
+- Skip and rename modes continue to protect existing files when the cloud filesystem does not support hard links.
+
+### Security
+
+- Permission errors are still reported rather than bypassed. Existing JPGs and original photos remain protected.
+
+### Important notes
+
+- Windows builds remain unsigned.
+
 ## [1.2.2] - 2026-10-27
 
 Save JPG copies even when a HEIC-named photo already contains JPEG data.
@@ -118,6 +135,7 @@ Initial Windows desktop release.
 - Metadata and timestamp preservation, configurable outputs, dark/light themes, and keyboard controls.
 - Opt-in Explorer integration, tray notifications, and Windows installer/uninstaller.
 
+[1.2.3]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.3
 [1.2.2]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.2
 [1.2.1]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.1
 [1.2.0]: https://github.com/jackingpanda/heic2jpg/releases/tag/v1.2.0

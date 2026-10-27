@@ -1,5 +1,12 @@
 [
   {
+    "version": "1.2.3", "date": "2026-10-27", "summary": "Fix saving JPG output on Google Drive shared drives.",
+    "added": [], "changed": [],
+    "fixed": ["Google Drive for desktop can report EISDIR when creating a hard link between regular files. Saving now falls back to an exclusive file copy.", "Skip and rename modes continue to protect existing files when the cloud filesystem does not support hard links."],
+    "security": ["Permission errors are still reported rather than bypassed. Existing JPGs and original photos remain protected."],
+    "notes": ["Windows builds remain unsigned."]
+  },
+  {
     "version": "1.2.2", "date": "2026-10-27", "summary": "Save JPG copies even when a HEIC-named photo already contains JPEG data.",
     "added": ["JPEG data in HEIC/HEIF-named files can be saved as verified .jpg copies from the GUI or Explorer menu, without recompression."],
     "changed": ["Existing JPEG pixels, metadata and orientation are retained. Naming, destination, conflict and timestamp settings still apply.", "The queue and compact window explain whether JPEG copies are ready or saved."],

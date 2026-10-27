@@ -1,6 +1,6 @@
 {
   "name": "heic2jpg",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Convert HEIC photos directly from Windows Explorer with local processing and compact progress.",
   "author": {
     "name": "KULAM",

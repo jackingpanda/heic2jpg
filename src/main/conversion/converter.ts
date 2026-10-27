@@ -25,7 +25,9 @@ export async function commitOutput(temp: string, destination: string, conflict: 
       catch (error) {
         // Hard links give an atomic commit on NTFS. Other volumes/sandboxes can
         // still guarantee no clobber using an exclusive filesystem copy.
-        if (!['EPERM', 'ENOTSUP', 'EXDEV', 'EOPNOTSUPP'].includes((error as NodeJS.ErrnoException).code || '')) throw error
+        // Google Drive for desktop reports EISDIR for link() even when both
+        // paths refer to regular files. Exclusive copy still prevents clobbering.
+        if (!['EPERM', 'ENOTSUP', 'EXDEV', 'EOPNOTSUPP', 'EISDIR'].includes((error as NodeJS.ErrnoException).code || '')) throw error
         await copyFile(temp, target, constants.COPYFILE_EXCL)
       }
       return target
